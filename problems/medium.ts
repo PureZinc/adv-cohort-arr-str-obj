@@ -8,7 +8,23 @@
  * Output: [[1,6],[8,10],[15,18]]
  *
  */
+type Interval = [number, number]
+const overlappedIntervals = (intervals: Interval[]): Interval[] => {
+    const sortedIntervals = intervals.sort(([lil1, big1], [lil2, big2]) => lil1 - lil2);
 
+    let currentInterval: Interval = sortedIntervals[0];
+    let ans: Interval[] = [];
+    for (let i = 1; i < sortedIntervals.length; i++) {
+        let [lil, big] = sortedIntervals[i];
+        if (currentInterval[1] >= lil) {
+            currentInterval[1] = big;
+        } else {
+            ans.push(currentInterval);
+            currentInterval = sortedIntervals[i];
+        }
+    }
+    return ans;
+}
 
 /*
  * Problem: Group Anagrams
