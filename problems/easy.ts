@@ -10,6 +10,15 @@
  *
  */
 
+const twoSum = (nums: number[], target: number): [number, number] | undefined => {
+    const targetSubt = nums.map(num => target - num);
+    for (let i = 0; i < nums.length; i++) {
+        if (nums.includes(targetSubt[i])) {
+            return [i, nums.indexOf(targetSubt[i])]
+        }
+    }
+}
+
 /*
  * Problem: Reverse Words in a String
  *
@@ -20,6 +29,10 @@
  * Output: "blue is sky the"
  *
  */
+
+const stringReverse = (str: string): string => {
+    return str.split(' ').reverse().join(' ');
+}
 
 /*
  * Problem: Most Common Character
@@ -32,6 +45,20 @@
  *
  */
 
+const commonChar = (str: string): string => {
+    let charMap = {};
+    let winningChar = str[0];
+    let winningVal = 0;
+    for (const char in str.split('')) {
+        charMap[char] = charMap[char] + 1 || 0;
+        if (charMap[char] > winningVal) {
+            winningVal = charMap[char];
+            winningChar = char;
+        }
+    }
+    return winningChar;
+}
+
 /*
  * Problem: Find Duplicates
  *
@@ -43,6 +70,19 @@
  *
  */
 
+const getDuplicates = (numArray: number[]): number[] => {
+    let trashBin: number[] = [];
+    let duplicates: number[] = [];
+    numArray.forEach(num => {
+        if (trashBin.includes(num)) {
+            duplicates.push(num);
+        } else {
+            trashBin.push(num);
+        }
+    })
+    return duplicates;
+}
+
 /*
  * Problem: First Unique Character
  *
@@ -53,3 +93,16 @@
  * Output: 0
  *
  */
+
+const firstUniqueChar = (str: string): number => {
+    const strArray = str.split('');
+    let trashBin: string[] = [];
+    strArray.forEach((char, index) => {
+        if (str.slice(index + 1).includes(char) || trashBin.includes(char)) {
+            trashBin.push(char);
+        } else {
+            return index;
+        }
+    });
+    return -1;
+}
